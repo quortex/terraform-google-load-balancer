@@ -110,7 +110,7 @@ resource "google_compute_backend_service" "public" {
 
   # The backend configuration.
   dynamic "backend" {
-    for_each = var.private_backend_service_config
+    for_each = var.public_backend_service_config
 
     content {
       group                        = lookup(backend.value, "group", null)
