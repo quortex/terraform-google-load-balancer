@@ -58,7 +58,7 @@ resource "google_compute_managed_ssl_certificate" "public" {
   provider = google-beta
   for_each = var.dns_records_public
 
-  name = "${var.ssl_certificates_name_prefix}-${each.key}"
+  name = replace("${var.ssl_certificates_name_prefix}-${each.key}", ".", "-")
 
   managed {
     domains = [google_dns_record_set.public[each.key].name]
@@ -70,7 +70,7 @@ resource "google_compute_managed_ssl_certificate" "private" {
   provider = google-beta
   for_each = var.dns_records_private
 
-  name = "${var.ssl_certificates_name_prefix}-${each.key}"
+  name = replace("${var.ssl_certificates_name_prefix}-${each.key}", ".", "-")
 
   managed {
     domains = [google_dns_record_set.private[each.key].name]
