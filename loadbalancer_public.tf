@@ -120,7 +120,7 @@ resource "google_compute_backend_service" "public" {
       max_connections              = lookup(backend.value, "max_connections", null)
       max_connections_per_instance = lookup(backend.value, "max_connections_per_instance", null)
       max_connections_per_endpoint = lookup(backend.value, "max_connections_per_endpoint", null)
-      max_rate                     = lookup(backend.value, "max_rate", 10000)
+      max_rate                     = lookup(backend.value, "max_rate", null)
       max_rate_per_instance        = lookup(backend.value, "max_rate_per_instance", null)
       max_rate_per_endpoint        = lookup(backend.value, "max_rate_per_endpoint", null)
       max_utilization              = lookup(backend.value, "max_utilization", null)
