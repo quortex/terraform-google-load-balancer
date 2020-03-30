@@ -115,9 +115,9 @@ variable "public_backend_service_description" {
 }
 
 variable "public_backend_service_config" {
-  type        = map
+  type        = list
   description = "The backend configuration for public loadbalancer backend. The available keys follows backend configuration described here => https://www.terraform.io/docs/providers/google/r/compute_backend_service.html#backend."
-  default     = {}
+  default     = []
 }
 
 variable "public_http_health_check_name" {
@@ -231,9 +231,9 @@ variable "private_backend_service_description" {
 }
 
 variable "private_backend_service_config" {
-  type        = map
+  type        = list
   description = "The backend configuration for private loadbalancer backend. The available keys follows backend configuration described here => https://www.terraform.io/docs/providers/google/r/compute_backend_service.html#backend."
-  default     = {}
+  default     = []
 }
 
 variable "private_http_health_check_name" {
