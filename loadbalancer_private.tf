@@ -81,7 +81,7 @@ resource "google_compute_target_https_proxy" "private" {
   description = var.private_https_proxy_description
 
   url_map          = google_compute_url_map.private.self_link
-  ssl_certificates = [for e in var.dns_records_private : google_compute_managed_ssl_certificate.private[e].self_link]
+  ssl_certificates = [for k, v in var.dns_records_private : google_compute_managed_ssl_certificate.private[k].self_link]
 }
 
 # The private UrlMap, used to route requests to Quortex backend service for private purpose.

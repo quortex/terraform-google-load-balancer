@@ -31,7 +31,7 @@ data "google_dns_managed_zone" "zone" {
 resource "google_dns_record_set" "public" {
   for_each = var.dns_records_public
 
-  name = "${each.key}.${data.google_dns_managed_zone.zone.dns_name}"
+  name = "${each.value}.${data.google_dns_managed_zone.zone.dns_name}"
   type = "A"
   ttl  = 300
 
@@ -44,7 +44,7 @@ resource "google_dns_record_set" "public" {
 resource "google_dns_record_set" "private" {
   for_each = var.dns_records_private
 
-  name = "${each.key}.${data.google_dns_managed_zone.zone.dns_name}"
+  name = "${each.value}.${data.google_dns_managed_zone.zone.dns_name}"
   type = "A"
   ttl  = 300
 
@@ -58,7 +58,7 @@ resource "google_compute_managed_ssl_certificate" "public" {
   provider = google-beta
   for_each = var.dns_records_public
 
-  name = replace("${var.ssl_certificates_name_prefix}-${each.key}", ".", "-")
+  name = replace("${var.ssl_certificates_name_prefix}-${each.value}", ".", "-")
 
   managed {
     domains = [google_dns_record_set.public[each.key].name]
@@ -70,7 +70,7 @@ resource "google_compute_managed_ssl_certificate" "private" {
   provider = google-beta
   for_each = var.dns_records_private
 
-  name = replace("${var.ssl_certificates_name_prefix}-${each.key}", ".", "-")
+  name = replace("${var.ssl_certificates_name_prefix}-${each.value}", ".", "-")
 
   managed {
     domains = [google_dns_record_set.private[each.key].name]

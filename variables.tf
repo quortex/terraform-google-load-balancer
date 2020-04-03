@@ -280,15 +280,15 @@ variable "dns_managed_zone" {
 }
 
 variable "dns_records_private" {
-  type        = set(string)
-  description = "A list of dns records to add in dns_managed_zone for private endpoints."
-  default     = []
+  type        = map(string)
+  description = "A map with dns records to add in dns_managed_zone for private endpoints set as value. Full domain names will be exported in a map for the given key."
+  default     = {}
 }
 
 variable "dns_records_public" {
-  type        = set(string)
-  description = "A list of dns records to add in dns_managed_zone for public endpoints."
-  default     = []
+  type        = map(string)
+  description = "A map with dns records to add in dns_managed_zone for public endpoints set as value. Full domain names will be exported in a map for the given key."
+  default     = {}
 }
 
 variable "ssl_certificates_name_prefix" {

@@ -80,7 +80,7 @@ resource "google_compute_target_https_proxy" "public" {
   name             = var.public_https_proxy_name
   description      = var.public_https_proxy_description
   url_map          = google_compute_url_map.public.self_link
-  ssl_certificates = [for e in var.dns_records_public : google_compute_managed_ssl_certificate.public[e].self_link]
+  ssl_certificates = [for k, v in var.dns_records_public : google_compute_managed_ssl_certificate.public[k].self_link]
 }
 
 # The public UrlMap, used to route requests to Quortex backend service for public purpose.
