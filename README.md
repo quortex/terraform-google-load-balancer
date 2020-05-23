@@ -29,23 +29,7 @@ module "load-balancer" {
   region     = "europe-west1"
 
   # Prevent resources names conflicts for multiple workspaces usage.
-  private_backend_service_name       = "quortex-${terraform.workspace}-private"
-  private_http_forwarding_rule_name  = "quortex-${terraform.workspace}-private-http"
-  private_http_health_check_name     = "quortex-${terraform.workspace}-private"
-  private_http_proxy_name            = "quortex-${terraform.workspace}-private-http"
-  private_https_forwarding_rule_name = "quortex-${terraform.workspace}-private-https"
-  private_https_proxy_name           = "quortex-${terraform.workspace}-private-https"
-  private_ip_name                    = "quortex-${terraform.workspace}-private"
-  private_security_policy_name       = "quortex-${terraform.workspace}-private"
-  private_url_map_name               = "quortex-${terraform.workspace}-private"
-  public_backend_service_name        = "quortex-${terraform.workspace}-public"
-  public_http_forwarding_rule_name   = "quortex-${terraform.workspace}-public-http"
-  public_http_health_check_name      = "quortex-${terraform.workspace}-public"
-  public_http_proxy_name             = "quortex-${terraform.workspace}-public-http"
-  public_https_forwarding_rule_name  = "quortex-${terraform.workspace}-public-https"
-  public_https_proxy_name            = "quortex-${terraform.workspace}-public-https"
-  public_ip_name                     = "quortex-${terraform.workspace}-public"
-  public_url_map_name                = "quortex-${terraform.workspace}-public"
+  name = "quortex-${terraform.workspace}"
 
   # The http health checks configuration (set for traefik ingress controllers).
   private_http_health_check_config = {

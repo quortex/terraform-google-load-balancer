@@ -19,7 +19,7 @@ resource "google_compute_global_address" "private" {
   # google beta required for labels atm.
   provider = google-beta
 
-  name        = var.private_ip_name
+  name        = length(var.private_ip_name) > 0 ? var.private_ip_name : "${var.name}-private"
   description = var.private_ip_description
 
   address_type = "EXTERNAL"
@@ -34,7 +34,7 @@ resource "google_compute_global_forwarding_rule" "private_http" {
   # google beta required for labels atm.
   provider = google-beta
 
-  name        = var.private_http_forwarding_rule_name
+  name        = length(var.private_http_forwarding_rule_name) > 0 ? var.private_http_forwarding_rule_name : "${var.name}-private-http"
   description = var.private_http_forwarding_rule_description
 
   # The URL of the target resource to receive the matched traffic.
@@ -50,7 +50,7 @@ resource "google_compute_global_forwarding_rule" "private_http" {
 # The private http proxy
 # It is used by one or more global forwarding rule to route incoming HTTP requests to the URL map.
 resource "google_compute_target_http_proxy" "private" {
-  name        = var.private_http_proxy_name
+  name        = length(var.private_http_proxy_name) > 0 ? var.private_http_proxy_name : "${var.name}-private-http"
   description = var.private_http_proxy_description
   url_map     = google_compute_url_map.private.self_link
 }
@@ -61,7 +61,7 @@ resource "google_compute_global_forwarding_rule" "private_https" {
   # google beta required for labels atm.
   provider = google-beta
 
-  name        = var.private_https_forwarding_rule_name
+  name        = length(var.private_https_forwarding_rule_name) > 0 ? var.private_https_forwarding_rule_name : "${var.name}-private-https"
   description = var.private_https_forwarding_rule_description
 
   # The URL of the target resource to receive the matched traffic.
@@ -77,7 +77,7 @@ resource "google_compute_global_forwarding_rule" "private_https" {
 # The private https proxy
 # It is used by one or more global forwarding rule to route incoming HTTPS requests to the URL map.
 resource "google_compute_target_https_proxy" "private" {
-  name        = var.private_https_proxy_name
+  name        = length(var.private_https_proxy_name) > 0 ? var.private_https_proxy_name : "${var.name}-private-https"
   description = var.private_https_proxy_description
 
   url_map          = google_compute_url_map.private.self_link
@@ -86,7 +86,7 @@ resource "google_compute_target_https_proxy" "private" {
 
 # The private UrlMap, used to route requests to Quortex backend service for private purpose.
 resource "google_compute_url_map" "private" {
-  name        = var.private_url_map_name
+  name        = length(var.private_url_map_name) > 0 ? var.private_url_map_name : "${var.name}-private"
   description = var.private_url_map_description
 
   # The backend service or backend bucket to use when none of the given rules match.
@@ -95,7 +95,7 @@ resource "google_compute_url_map" "private" {
 
 # The backend service associated to private loadbalancer.
 resource "google_compute_backend_service" "private" {
-  name        = var.private_backend_service_name
+  name        = length(var.private_backend_service_name) > 0 ? var.private_backend_service_name : "${var.name}-private"
   description = var.private_backend_service_description
 
   load_balancing_scheme = "EXTERNAL"
@@ -132,7 +132,7 @@ resource "google_compute_backend_service" "private" {
 
 # The private backend service health check configuration.
 resource "google_compute_health_check" "private" {
-  name        = var.private_http_health_check_name
+  name        = length(var.private_http_health_check_name) > 0 ? var.private_http_health_check_name : "${var.name}-private"
   description = var.private_http_health_check_description
 
   http_health_check {
@@ -144,7 +144,7 @@ resource "google_compute_health_check" "private" {
 # The security policy associated to private loadbalancer.
 # Set the IP ranges whitelisted for private loadbalancer access.
 resource "google_compute_security_policy" "policy" {
-  name        = var.private_security_policy_name
+  name        = length(var.private_security_policy_name) > 0 ? var.private_security_policy_name : "${var.name}-private"
   description = var.private_security_policy_description
 
   # Reject all traffic that hasn't been whitelisted.

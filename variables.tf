@@ -24,10 +24,15 @@ variable "region" {
   description = "The region in wich to create regional resources."
 }
 
+variable "name" {
+  type        = string
+  description = "A name from which the name of the resources will be chosen. Note that each resource name can be set individually."
+}
+
 variable "public_ip_name" {
   type        = string
   description = "The public load balancer external IP name."
-  default     = "quortex-public"
+  default     = ""
 }
 
 variable "public_ip_description" {
@@ -45,7 +50,7 @@ variable "public_ip_version" {
 variable "public_http_forwarding_rule_name" {
   type        = string
   description = "The public load balancer http forwarding rule name."
-  default     = "quortex-public-http"
+  default     = ""
 }
 
 variable "public_http_forwarding_rule_description" {
@@ -57,7 +62,7 @@ variable "public_http_forwarding_rule_description" {
 variable "public_https_forwarding_rule_name" {
   type        = string
   description = "The public load balancer https forwarding rule name."
-  default     = "quortex-public-https"
+  default     = ""
 }
 
 variable "public_https_forwarding_rule_description" {
@@ -69,7 +74,7 @@ variable "public_https_forwarding_rule_description" {
 variable "public_http_proxy_name" {
   type        = string
   description = "The public load balancer http proxy name."
-  default     = "quortex-public-http"
+  default     = ""
 }
 
 variable "public_http_proxy_description" {
@@ -81,7 +86,7 @@ variable "public_http_proxy_description" {
 variable "public_https_proxy_name" {
   type        = string
   description = "The public load balancer https proxy name."
-  default     = "quortex-public-https"
+  default     = ""
 }
 
 variable "public_https_proxy_description" {
@@ -93,7 +98,7 @@ variable "public_https_proxy_description" {
 variable "public_url_map_name" {
   type        = string
   description = "The public load balancer url map name."
-  default     = "quortex-public"
+  default     = ""
 }
 
 variable "public_url_map_description" {
@@ -105,7 +110,7 @@ variable "public_url_map_description" {
 variable "public_backend_service_name" {
   type        = string
   description = "The public load balancer backend service name."
-  default     = "quortex-public"
+  default     = ""
 }
 
 variable "public_backend_service_description" {
@@ -123,7 +128,7 @@ variable "public_backend_service_config" {
 variable "public_http_health_check_name" {
   type        = string
   description = "The public load balancer backend service http health check name."
-  default     = "quortex-public"
+  default     = ""
 }
 
 variable "public_http_health_check_description" {
@@ -143,7 +148,7 @@ variable "public_http_health_check_config" {
 variable "private_ip_name" {
   type        = string
   description = "The private load balancer external IP name."
-  default     = "quortex-private"
+  default     = ""
 }
 
 variable "private_ip_description" {
@@ -161,7 +166,7 @@ variable "private_ip_version" {
 variable "private_http_forwarding_rule_name" {
   type        = string
   description = "The private load balancer http forwarding rule name."
-  default     = "quortex-private-http"
+  default     = ""
 }
 
 variable "private_http_forwarding_rule_description" {
@@ -173,7 +178,7 @@ variable "private_http_forwarding_rule_description" {
 variable "private_https_forwarding_rule_name" {
   type        = string
   description = "The private load balancer https forwarding rule name."
-  default     = "quortex-private-https"
+  default     = ""
 }
 
 variable "private_https_forwarding_rule_description" {
@@ -185,7 +190,7 @@ variable "private_https_forwarding_rule_description" {
 variable "private_http_proxy_name" {
   type        = string
   description = "The private load balancer http proxy name."
-  default     = "quortex-private-http"
+  default     = ""
 }
 
 variable "private_http_proxy_description" {
@@ -197,7 +202,7 @@ variable "private_http_proxy_description" {
 variable "private_https_proxy_name" {
   type        = string
   description = "The private load balancer https proxy name."
-  default     = "quortex-private-https"
+  default     = ""
 }
 
 variable "private_https_proxy_description" {
@@ -209,7 +214,7 @@ variable "private_https_proxy_description" {
 variable "private_url_map_name" {
   type        = string
   description = "The private load balancer url map name."
-  default     = "quortex-private"
+  default     = ""
 }
 
 variable "private_url_map_description" {
@@ -221,7 +226,7 @@ variable "private_url_map_description" {
 variable "private_backend_service_name" {
   type        = string
   description = "The private load balancer backend service name."
-  default     = "quortex-private"
+  default     = ""
 }
 
 variable "private_backend_service_description" {
@@ -239,7 +244,7 @@ variable "private_backend_service_config" {
 variable "private_http_health_check_name" {
   type        = string
   description = "The private load balancer backend service http health check name."
-  default     = "quortex-private"
+  default     = ""
 }
 
 variable "private_http_health_check_description" {
@@ -259,7 +264,7 @@ variable "private_http_health_check_config" {
 variable "private_security_policy_name" {
   type        = string
   description = "The private load balancer backend service security policy name."
-  default     = "quortex-private"
+  default     = ""
 }
 
 variable "private_security_policy_description" {

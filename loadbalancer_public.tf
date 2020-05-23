@@ -19,7 +19,7 @@ resource "google_compute_global_address" "public" {
   # google beta required for labels atm.
   provider = google-beta
 
-  name        = var.public_ip_name
+  name        = length(var.public_ip_name) > 0 ? var.public_ip_name : "${var.name}-public"
   description = var.public_ip_description
 
   address_type = "EXTERNAL"
@@ -34,7 +34,7 @@ resource "google_compute_global_forwarding_rule" "public_http" {
   # google beta required for labels atm.
   provider = google-beta
 
-  name        = var.public_http_forwarding_rule_name
+  name        = length(var.public_http_forwarding_rule_name) > 0 ? var.public_http_forwarding_rule_name : "${var.name}-public-http"
   description = var.public_http_forwarding_rule_description
 
   # The URL of the target resource to receive the matched traffic.
@@ -50,7 +50,7 @@ resource "google_compute_global_forwarding_rule" "public_http" {
 # The public HTTP proxy
 # It is used by one or more global forwarding rule to route incoming HTTP requests to the URL map.
 resource "google_compute_target_http_proxy" "public" {
-  name        = var.public_http_proxy_name
+  name        = length(var.public_http_proxy_name) > 0 ? var.public_http_proxy_name : "${var.name}-public-http"
   description = var.public_http_proxy_description
   url_map     = google_compute_url_map.public.self_link
 }
@@ -61,7 +61,7 @@ resource "google_compute_global_forwarding_rule" "public_https" {
   # google beta required for labels atm.
   provider = google-beta
 
-  name        = var.public_https_forwarding_rule_name
+  name        = length(var.public_https_forwarding_rule_name) > 0 ? var.public_https_forwarding_rule_name : "${var.name}-public-https"
   description = var.public_https_forwarding_rule_description
 
   # The URL of the target resource to receive the matched traffic.
@@ -77,7 +77,7 @@ resource "google_compute_global_forwarding_rule" "public_https" {
 # The public HTTPS proxy
 # It is used by one or more global forwarding rule to route incoming HTTPS requests to the URL map.
 resource "google_compute_target_https_proxy" "public" {
-  name             = var.public_https_proxy_name
+  name             = length(var.public_https_proxy_name) > 0 ? var.public_https_proxy_name : "${var.name}-public-https"
   description      = var.public_https_proxy_description
   url_map          = google_compute_url_map.public.self_link
   ssl_certificates = [for k, v in var.dns_records_public : google_compute_managed_ssl_certificate.public[k].self_link]
@@ -85,7 +85,7 @@ resource "google_compute_target_https_proxy" "public" {
 
 # The public UrlMap, used to route requests to Quortex backend service for public purpose.
 resource "google_compute_url_map" "public" {
-  name        = var.public_url_map_name
+  name        = length(var.public_url_map_name) > 0 ? var.public_url_map_name : "${var.name}-public"
   description = var.public_url_map_description
 
   # The backend service or backend bucket to use when none of the given rules match.
@@ -94,7 +94,7 @@ resource "google_compute_url_map" "public" {
 
 # The backend service associated to public loadbalancer.
 resource "google_compute_backend_service" "public" {
-  name        = var.public_backend_service_name
+  name        = length(var.public_backend_service_name) > 0 ? var.public_backend_service_name : "${var.name}-public"
   description = var.public_backend_service_description
 
   load_balancing_scheme = "EXTERNAL"
@@ -130,7 +130,7 @@ resource "google_compute_backend_service" "public" {
 
 # The public backend service health check configuration.
 resource "google_compute_health_check" "public" {
-  name        = var.public_http_health_check_name
+  name        = length(var.public_http_health_check_name) > 0 ? var.public_http_health_check_name : "${var.name}-public"
   description = var.public_http_health_check_description
 
   http_health_check {
